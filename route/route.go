@@ -11,37 +11,38 @@ import (
 func New() *echo.Echo {
 	e := echo.New()
 	//users
+	e.POST("/singup/", controller.CreateUserController)
 	e.POST("/login/", controller.LoginUserController)
 	//jwt_user
 	ejwt := e.Group("")
 	ejwt.Use(middleware.JWT([]byte(constant.SECRET_JWT)))
 	ejwt.GET("/user/", controller.GetAllUserController)
 	ejwt.GET("/user/:code", controller.GetUserControllerCode)
-	ejwt.POST("/user/", controller.CreateUserController)
+	
 	ejwt.PUT("/user/:code", controller.UpdateUserController)
 	ejwt.DELETE("/user/:code", controller.DeleteUserController)
 
 
 	//Siswa
 	ejwt.GET("/siswa/:code", controller.GetSiswaControllercode)
-	e.GET("/siswa/", controller.GetAllSiswaController)
-	e.POST("/siswa/", controller.CreateSiswacontroller)
-	e.PUT("/siswa/:code", controller.UpdateSiswaController)
-	e.DELETE("/siswa/:code", controller.DeleteSiswaController)
+	ejwt.GET("/siswa/", controller.GetAllSiswaController)
+	ejwt.POST("/siswa/", controller.CreateSiswacontroller)
+	ejwt.PUT("/siswa/:code", controller.UpdateSiswaController)
+	ejwt.DELETE("/siswa/:code", controller.DeleteSiswaController)
 	//jwt_Siswa
 
 
 	//kelas
-	e.GET("/kelas/:code", controller.GetKelasControllerCode)
-	e.GET("/kelas/", controller.GetAllKelasController)
-	e.POST("/kelas/", controller.CreateKelasController)
-	e.PUT("/kelas/:code", controller.UpdateKelasController)
-	e.DELETE("/kelas/:code", controller.DeleteKelasController)
+	ejwt.GET("/kelas/:code", controller.GetKelasControllerCode)
+	ejwt.GET("/kelas/", controller.GetAllKelasController)
+	ejwt.POST("/kelas/", controller.CreateKelasController)
+	ejwt.PUT("/kelas/:code", controller.UpdateKelasController)
+	ejwt.DELETE("/kelas/:code", controller.DeleteKelasController)
 	//Nilai
-	e.GET("/nilai_raport/:code", controller.GetNilai_raportControllerCode)
-	e.GET("/nilai_raport/", controller.GetAllNilai_raportController)
-	e.POST("/nilai_raport/", controller.CreateNilai_raportController)
-	e.PUT("/nilai_raport/:code", controller.UpdateNilai_raportController)
-	e.DELETE("/nilai_raport/:code", controller.DeleteNilai_raportController)
+	ejwt.GET("/nilai_raport/:code", controller.GetNilai_raportControllerCode)
+	ejwt.GET("/nilai_raport/", controller.GetAllNilai_raportController)
+	ejwt.POST("/nilai_raport/", controller.CreateNilai_raportController)
+	ejwt.PUT("/nilai_raport/:code", controller.UpdateNilai_raportController)
+	ejwt.DELETE("/nilai_raport/:code", controller.DeleteNilai_raportController)
 	return e
 }
